@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
-  combineLatest,
+  combineLatest, debounceTime,
   filter,
   forkJoin,
   map,
@@ -33,9 +33,7 @@ export class AppComponent implements OnInit, OnDestroy {
   changeCharactersInput(element: any): void {
     // 1.1. Add functionality to changeCharactersInput method. Changes searchTermByCharacters Subject value on input change.
     const inputValue: string = element.target.value;
-    // YOUR CODE STARTS HERE
-
-    // YOUR CODE ENDS HERE
+    this.searchTermByCharacters.next(inputValue);
   }
 
   initCharacterEvents(): void {
@@ -45,19 +43,24 @@ export class AppComponent implements OnInit, OnDestroy {
 
     // 3. Add debounce to prevent API calls until user stop typing.
 
-    this.charactersResults$ = this.searchTermByCharacters
-        .pipe
-        // YOUR CODE STARTS HERE
-
-        // YOUR CODE ENDS HERE
-        ();
+    this.charactersResults$ = this.searchTermByCharacters.pipe(
+        filter((searchTerm) => searchTerm.length >= 3),
+        debounceTime(300),
+        switchMap((searchTerm) => this.mockDataService.getCharacters(searchTerm))
+    );
   }
 
   loadCharactersAndPlanet(): void {
     // 4. On clicking the button 'Load Characters And Planets', it is necessary to process two requests and combine the results of both requests into one result array. As a result, a list with the names of the characters and the names of the planets is displayed on the screen.
     // Your code should looks like this: this.planetAndCharactersResults$ = /* Your code */
-    // YOUR CODE STARTS HERE
-    // YOUR CODE ENDS HERE
+    const charactersRequest = this.mockDataService.getCharacters();
+    const planetsRequest = this.mockDataService.getPlanets();
+
+    this.planetAndCharactersResults$ = forkJoin([charactersRequest, planetsRequest]).pipe(
+        map(([characters, planets]) => {
+          return [...characters, ...planets];
+        })
+    );
   }
 
   initLoadingState(): void {
@@ -66,14 +69,21 @@ export class AppComponent implements OnInit, OnDestroy {
     - Combine the value of each of the streams.
     - Subscribe to changes
     - Check the received value using the areAllValuesTrue function and pass them to the isLoading variable. */
-    // YOUR CODE STARTS HERE
-    // YOUR CODE ENDS HERE
+    const charactersLoader$ = this.mockDataService.getCharactersLoader();
+    const planetLoader$ = this.mockDataService.getPlanetLoader();
+
+    const combinedLoader$ = combineLatest([charactersLoader$, planetLoader$]);
+
+    const loadingSubscription = combinedLoader$.subscribe(([charactersLoading, planetLoading]) => {
+      this.isLoading = this.areAllValuesTrue([charactersLoading, planetLoading]);
+    });
+
+    this.subscriptions.push(loadingSubscription);
   }
 
   ngOnDestroy(): void {
     // 5.2 Unsubscribe from all subscriptions
-    // YOUR CODE STARTS HERE
-    // YOUR CODE ENDS HERE
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   areAllValuesTrue(elements: boolean[]): boolean {
