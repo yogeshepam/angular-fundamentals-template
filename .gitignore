@@ -23,3 +23,10 @@ yarn-debug.log*
 yarn-error.log*
 
 .idea/
+.angular/cache/15.2.9/angular-webpack/767120fcb9b696f0d1bdc5811fea4d84c9080ef9/0.pack
+.angular/cache/15.2.9/angular-webpack/767120fcb9b696f0d1bdc5811fea4d84c9080ef9/index.pack
+.angular/cache/15.2.9/babel-webpack/0b76333212d31b7dafb435b2a48e3ed173447e079772cb8da7b80f3f22f90c4f.json
+.angular/cache/15.2.9/babel-webpack/598b3883a90f34c38fc598a67464a8b01919257bc585d8bbb328df696573e915.json
+.angular/cache/15.2.9/babel-webpack/622d8016ee2a1f5f03b399207185974d8c6e48dab8a5814581149cef17decfd4.json
+.angular/cache/15.2.9/babel-webpack/ae3e5187b00efce2f22313e8da018781b078f750d10217e06685197c0daa97d7.json
+.angular/cache/15.2.9/babel-webpack/df22a1e5fc754322749a08454ccfeaf4761494a23f9d05c50c221fadb4cec08e.json

@@ -13,4 +13,5 @@ export class ButtonComponent {
   }
 
   // Use the names for the inputs `buttonText` and `iconName`.
+  buttonText: string ="SHOW COURSE";
 }

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-
+import { mockedAuthorsList, mockedCoursesList } from '@app/shared/mocks/mocks';
 @Injectable({
     providedIn: 'root'
 })
 export class CoursesService {
     getAll() {
-        // Add your code here
+        return mockedCoursesList;
     }
 
     createCourse(course: any) { // replace 'any' with the required interface
@@ -13,11 +13,12 @@ export class CoursesService {
     }
 
     editCourse(id: string, course: any) { // replace 'any' with the required interface
-        // Add your code here
+      
     }
 
     getCourse(id: string) {
         // Add your code here
+        return mockedCoursesList.filter(data => data.id === id);
     }
 
     deleteCourse(id: string) {
@@ -37,6 +38,7 @@ export class CoursesService {
     }
 
     getAuthorById(id: string) {
-        // Add your code here
+        return mockedAuthorsList.filter(data => data.id === id);
+        
     }
 }
