@@ -13,5 +13,5 @@ export class ButtonComponent {
   }
 
   // Use the names for the inputs `buttonText` and `iconName`.
-  @Input() buttonText: string='';
+  @Input() buttonText: string="LOGOUT";
 }

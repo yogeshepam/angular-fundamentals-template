@@ -14,7 +14,7 @@ export class CourseCardComponent implements OnInit{
   @Input() courselist: any[] | undefined;
   @Input() editable: true | undefined;
   courseId: string='';
-  buttonText:string='';
+  buttonText: string = "SHOW COURSE";
   constructor(private courseService : CoursesService){}
 
   ngOnInit(): void {
