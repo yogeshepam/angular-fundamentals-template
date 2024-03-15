@@ -1,5 +1,8 @@
 <div class="app-header">
   <img alt="logo" src="assets/logo.svg">
-  {{userName}}
-  <app-button>LOG OUT</app-button>
+  <div class="container">    
+    <div class="item"><app-button [buttonText]="buttonText"></app-button></div>
+    <div class="item">{{userName}}</div>
+  
+  </div>
 </div>
